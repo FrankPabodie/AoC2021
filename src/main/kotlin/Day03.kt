@@ -2,7 +2,6 @@ class Day03 : Puzzle<Int>("Day03", 198, 230) {
     override fun part1(input: Input): Int {
 
 
-
         var gamma: List<String> = emptyList()
         for (i in 0 until input[0].length) {
             gamma = if (input.count { it[i].code == 49 } > (input.size / 2)) {
@@ -32,7 +31,7 @@ class Day03 : Puzzle<Int>("Day03", 198, 230) {
 
         for (i in 0..input[0].length) {
             if (oxyGenRating.size > 1) {
-                oxyGenRating = if (oxyGenRating.count { it[i].code == 49 } >= oxyGenRating.count { it[i].code == 48 } ) {
+                oxyGenRating = if (oxyGenRating.count { it[i].code == 49 } >= oxyGenRating.count { it[i].code == 48 }) {
                     oxyGenRating.filter { it[i].code == 49 }
                 } else {
                     oxyGenRating.filter { it[i].code == 48 }
