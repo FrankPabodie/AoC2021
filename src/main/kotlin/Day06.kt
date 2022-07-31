@@ -37,8 +37,6 @@ class Day06 : Puzzle<Long>("Day06", 5934, 26984457539) {
         for (i in fishis.indices) {
             mapOfFish[fishis[i]] = mapOfFish.getValue(fishis[i]) + 1
         }
-
-
         for (i in 1..waitDays) {
             val fishOn8 = mapOfFish[8]
             val fishOn6 = mapOfFish[6]
@@ -49,7 +47,6 @@ class Day06 : Puzzle<Long>("Day06", 5934, 26984457539) {
                         mapOfFish[6] = mapOfFish.getValue(entry.key) + mapOfFish.getValue(7)
                     }
                     7 -> {
-
                     }
                     6 -> {
                         mapOfFish[5] = fishOn6 ?: 0
@@ -61,12 +58,8 @@ class Day06 : Puzzle<Long>("Day06", 5934, 26984457539) {
                         mapOfFish[entry.key - 1] = mapOfFish.getValue(entry.key)
                     }
                 }
-
             }
-
-
         }
-
         return mapOfFish.values.sum()
     }
 
