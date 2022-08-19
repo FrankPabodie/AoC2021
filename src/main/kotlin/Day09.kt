@@ -9,7 +9,7 @@ class Day09 : Puzzle<Int>("Day09", 15, 1134) {
     //fun that searches for lowpoints
     private fun List<List<Int>>.onlyLowPoints(): List<Int> {
         val mapWithIsLow = this.toListwithPairs()
-        return mapWithIsLow.flatMap { l -> l.filter { (x, y) -> y }.map { (x, y) -> x } }
+        return mapWithIsLow.flatMap { l -> l.filter { (_, y) -> y }.map { (x, _) -> x } }
     }
 
     private fun List<List<Int>>.toListwithPairs(): MutableList<MutableList<Pair<Int, Boolean>>> {
@@ -43,10 +43,6 @@ class Day09 : Puzzle<Int>("Day09", 15, 1134) {
         println(listOfBasins.drop( listOfBasins.size -3).map { it.second })
         return listOfBasins.drop( listOfBasins.size -3).map { it.second }.reduce{acc, i -> acc * i }
 
-        /*val listOfBasins: List<Int> =
-            allBasins.flatten().groupBy { (a, b) -> b }.map { m -> m.value.sumOf { p -> p.first.first } }
-        return listOfBasins.sorted().filter { Basins -> Basins >= listOfBasins[listOfBasins.size - 4] }
-            .reduce { acc, i -> acc * i }*/
     }
 
     //represents a point in a grid
@@ -78,43 +74,34 @@ class Day09 : Puzzle<Int>("Day09", 15, 1134) {
 
     private fun MutableList<MutableList<Pair<Int, Point2d>>>.scanBasins():
             MutableList<MutableList<Pair<Int, Point2d>>> {
-        var tmpGrid = this
+        val tmpGrid = this
 
         for (lineNr in this.indices) {
             for (columnNr in this[lineNr].indices) {
                 if (this[lineNr][columnNr].second != Point2d(-1, -1)) {
                     if (lineNr - 1 in this.indices
-                        && this[lineNr - 1][columnNr].first != 9
-                    /*&& this[lineNr][columnNr].first < this[lineNr - 1][columnNr].first*/) {
+                        && this[lineNr - 1][columnNr].first != 9) {
                         tmpGrid[lineNr - 1][columnNr] =
                             Pair(this[lineNr - 1][columnNr].first, this[lineNr][columnNr].second)
                     }
                     if (columnNr - 1 in this[lineNr].indices
-                        && this[lineNr][columnNr - 1].first != 9
-                    /*&& this[lineNr][columnNr].first < this[lineNr][columnNr-1].first*/) {
+                        && this[lineNr][columnNr - 1].first != 9) {
                         tmpGrid[lineNr][columnNr - 1] =
                             Pair(this[lineNr][columnNr - 1].first, this[lineNr][columnNr].second)
                     }
                     if (lineNr + 1 in this.indices
-                        && this[lineNr + 1][columnNr].first != 9
-                    /*&& this[lineNr][columnNr].first < this[lineNr + 1][columnNr].first*/) {
+                        && this[lineNr + 1][columnNr].first != 9) {
                         tmpGrid[lineNr + 1][columnNr] =
                             Pair(this[lineNr + 1][columnNr].first, this[lineNr][columnNr].second)
                     }
                     if (columnNr + 1 in this[lineNr].indices
-                        && this[lineNr][columnNr + 1].first != 9
-                    /*&& this[lineNr][columnNr].first < this[lineNr ][columnNr+1].first*/) {
+                        && this[lineNr][columnNr + 1].first != 9) {
                         tmpGrid[lineNr][columnNr + 1] =
                             Pair(this[lineNr][columnNr + 1].first, this[lineNr][columnNr].second)
                     }
                 }
             }
         }
-        /*
-                tmpGrid.forEach{
-                    println(it)
-                }
-                println("/n/n")*/
         return tmpGrid
     }
 
